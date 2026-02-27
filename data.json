@@ -1,0 +1,34 @@
+{
+  "cars": [
+    {
+      "id": "a845aq41",
+      "name": "Dzire",
+      "fuelType": "Petrol"
+    }
+  ],
+  "people": [
+    {
+      "id": "rcnpr09f",
+      "name": "Aditya",
+      "rates": {
+        "a845aq41": 60
+      }
+    },
+    {
+      "id": "zxyjdnc1",
+      "name": "dheer",
+      "rates": {
+        "a845aq41": 60
+      }
+    },
+    {
+      "id": "sjfm5zh3",
+      "name": "Bir",
+      "rates": {
+        "a845aq41": 0
+      }
+    }
+  ],
+  "trips": [],
+  "adjustments": []
+}

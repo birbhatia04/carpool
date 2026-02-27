@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Carpool Tracker</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="app-header">
+        <div class="brand">
+          <div class="brand-logo">CP</div>
+          <div class="brand-text">
+            <h1>Carpool Tracker</h1>
+            <p>Keep trips, rates & dues in sync</p>
+          </div>
+        </div>
+        <nav class="tabs" id="nav-tabs">
+          <button class="tab active" data-tab="trips">Trips & Calendar</button>
+          <button class="tab" data-tab="cars">Cars</button>
+          <button class="tab" data-tab="people">People & Rates</button>
+          <button class="tab" data-tab="balances">Dues & Credits</button>
+        </nav>
+      </header>
+
+      <main class="app-main">
+        <!-- Trips / Calendar -->
+        <section class="tab-panel active" id="tab-trips">
+          <div class="panel-header">
+            <h2>Trips & Calendar</h2>
+            <p>Add new trips and see your history.</p>
+          </div>
+          <div class="panel-grid">
+            <div class="card">
+              <div class="card-header-inline">
+                <h3>Calendar</h3>
+                <div class="calendar-header-controls">
+                  <button id="calendar-prev" class="btn subtle small-btn">
+                    ◀
+                  </button>
+                  <span id="calendar-month-label" class="calendar-month-label"></span>
+                  <button id="calendar-next" class="btn subtle small-btn">
+                    ▶
+                  </button>
+                </div>
+              </div>
+              <div class="calendar-grid" id="calendar-grid"></div>
+            </div>
+
+            <div class="card">
+              <h3>Add Trip & History</h3>
+              <form id="trip-form" class="form-grid">
+                <label>
+                  Date
+                  <input type="date" id="trip-date" required />
+                </label>
+
+                <label>
+                  Car
+                  <select id="trip-car" required></select>
+                </label>
+
+                <label>
+                  Driver
+                  <select id="trip-driver" required></select>
+                </label>
+
+                <div class="full-width">
+                  <label>
+                    Passengers
+                    <div id="trip-passengers" class="chip-list empty-state">
+                      <p class="muted small">
+                        Add cars and people first to pick passengers.
+                      </p>
+                    </div>
+                  </label>
+                </div>
+
+                <div class="form-actions full-width">
+                  <button type="submit" class="btn primary">Save Trip</button>
+                </div>
+              </form>
+
+              <div class="card-subsection">
+                <div class="card-header-inline">
+                  <h3>Trip History</h3>
+                  <select id="trip-filter-car" class="ghost-input">
+                    <option value="">All cars</option>
+                  </select>
+                </div>
+                <div id="trip-list" class="list-stack empty-state">
+                  <p class="muted">
+                    No trips yet. Add your first trip above.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Cars -->
+        <section class="tab-panel" id="tab-cars">
+          <div class="panel-header">
+            <h2>Cars</h2>
+            <p>Add cars and set their fuel type.</p>
+          </div>
+          <div class="panel-grid">
+            <div class="card">
+              <h3>Add Car</h3>
+              <form id="car-form" class="form-grid">
+                <label>
+                  Car name
+                  <input
+                    type="text"
+                    id="car-name"
+                    placeholder="e.g. Blue Swift"
+                    required
+                  />
+                </label>
+                <label>
+                  Fuel type
+                  <select id="car-fuel" required>
+                    <option value="">Select fuel type</option>
+                    <option value="Petrol">Petrol</option>
+                    <option value="Diesel">Diesel</option>
+                    <option value="CNG">CNG</option>
+                    <option value="Electric">Electric</option>
+                    <option value="Hybrid">Hybrid</option>
+                  </select>
+                </label>
+                <div class="form-actions full-width">
+                  <button type="submit" class="btn primary">Add Car</button>
+                </div>
+              </form>
+            </div>
+
+            <div class="card">
+              <h3>Car List</h3>
+              <div id="car-list" class="list-stack empty-state">
+                <p class="muted">No cars yet. Add your first car on the left.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- People & Rates -->
+        <section class="tab-panel" id="tab-people">
+          <div class="panel-header">
+            <h2>People & Rates</h2>
+            <p>
+              Add people and set the price they pay for each car. You can change
+              these any time.
+            </p>
+          </div>
+          <div class="panel-grid">
+            <div class="card">
+              <h3>Add Person</h3>
+              <form id="person-form" class="form-grid">
+                <label>
+                  Name
+                  <input
+                    type="text"
+                    id="person-name"
+                    placeholder="e.g. Aditi"
+                    required
+                  />
+                </label>
+                <div class="form-actions full-width">
+                  <button type="submit" class="btn primary">Add Person</button>
+                </div>
+              </form>
+            </div>
+
+            <div class="card">
+              <div class="card-header-inline">
+                <h3>Rates per Car</h3>
+              </div>
+              <div id="rates-table-wrapper" class="table-wrapper empty-state">
+                <p class="muted">
+                  Add at least one car and one person to start setting rates.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Balances -->
+        <section class="tab-panel" id="tab-balances">
+          <div class="panel-header">
+            <h2>Dues & Credits</h2>
+            <p>
+              See who owes whom, per car. Balances update automatically when you
+              add trips.
+            </p>
+          </div>
+
+          <div class="panel-grid">
+            <div class="card">
+              <div class="card-header-inline">
+                <h3>Overview</h3>
+                <select id="balance-person-filter" class="ghost-input">
+                  <option value="">All people</option>
+                </select>
+              </div>
+              <div id="balance-list" class="list-stack empty-state">
+                <p class="muted">
+                  No data yet. Add some cars, people, rates and trips.
+                </p>
+              </div>
+            </div>
+
+            <div class="card">
+              <h3>Manual Adjustment</h3>
+              <p class="muted small">
+                Use this when you settle in cash or need to correct a balance. Positive
+                amounts mean the person owes more; negative amounts mean they have more
+                credit.
+              </p>
+              <form id="adjustment-form" class="form-grid">
+                <label>
+                  Car
+                  <select id="adjust-car" required></select>
+                </label>
+                <label>
+                  Person
+                  <select id="adjust-person" required></select>
+                </label>
+                <label>
+                  Amount (₹)
+                  <input
+                    type="number"
+                    id="adjust-amount"
+                    step="1"
+                    required
+                  />
+                </label>
+                <label>
+                  Note
+                  <input
+                    type="text"
+                    id="adjust-note"
+                    placeholder="e.g. Settled in cash"
+                  />
+                </label>
+                <div class="form-actions full-width">
+                  <button type="submit" class="btn primary">Save Adjustment</button>
+                </div>
+              </form>
+
+              <div class="card-subsection">
+                <h3 class="small">Recent Adjustments</h3>
+                <div id="adjustment-list" class="list-stack empty-state">
+                  <p class="muted small">
+                    No manual adjustments yet.
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer class="app-footer">
+        <span>Data is stored on this machine (Node backend).</span>
+        <button id="reset-data" class="btn subtle">Reset all data</button>
+      </footer>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+  </html>
+
